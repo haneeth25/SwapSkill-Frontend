@@ -1,0 +1,22 @@
+.auth-page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10%;
+    height: 100vh;
+    flex-wrap: wrap;
+}
+.card{
+    width: 25%;
+    box-shadow: 1rem 1rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+.formFeilds{
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+}
+.button{
+    padding-top: 1rem;
+    display: flex;
+    justify-content: center;
+}

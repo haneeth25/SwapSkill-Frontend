@@ -1,0 +1,87 @@
+<div class="auth-page">
+  <div class="card flex justify-content-center">
+    <!-- LOGIN -->
+    <p-card header="Login">
+      <div class="flex flex-column gap-2 formFeilds">
+        <label for="username">Username</label>
+        <input
+          pInputText
+          id="loginusername"
+          aria-describedby="username-help"
+          [(ngModel)]="loginUsername"
+          placeholder="Enter your username"
+        />
+      </div>
+      <div class="flex flex-column gap-2 formFeilds">
+        <label for="password" class="form-label">Password</label>
+        <input
+          pInputText
+          id="loginpassword"
+          name="loginpassword"
+          aria-describedby="password-help"
+          type="password"
+          [(ngModel)]="loginPassword"
+          class="form-input"
+          placeholder="Enter your password"
+          required
+        />
+      </div>
+      <div class="button">
+        <p-button label="Submit" (onClick)="loginSubmit()"/>
+      </div>
+      <small *ngIf="loginFailed" class="p-error">
+              Invalid Credintials.
+            </small>
+    </p-card>
+  </div>
+
+  <!-- SignUp -->
+  <div class="card flex justify-content-center">
+    <p-card header="Sign-UP">
+      <div class="flex flex-column gap-2 formFeilds">
+        <label for="username">Username</label>
+        <input
+          pInputText
+          id="signupusername"
+          aria-describedby="username-help"
+          [(ngModel)]="signupUsername"
+          placeholder="Enter your username"
+        />
+      </div>
+      <div class="flex flex-column gap-2 formFeilds">
+        <label for="email" class="form-label">Email</label>
+        <input
+          pInputText
+          id="signupemail"
+          name="signupemail"
+          aria-describedby="email-help"
+          type="email"
+          [(ngModel)]="signupEmail"
+          class="form-input"
+          placeholder="Enter your email"
+          required
+        />
+      </div>
+      <div class="flex flex-column gap-2 formFeilds">
+        <label for="password" class="form-label">Password</label>
+        <input
+          pInputText
+          id="sinuppassword"
+          name="signuppassword"
+          aria-describedby="password-help"
+          type="password"
+          [(ngModel)]="signupassword"
+          class="form-input"
+          placeholder="Enter your password"
+          required
+        />
+      </div>
+      <div class="button">
+        <p-button label="Submit" (onClick)="signupSubmit()"/>
+      </div>
+      <small *ngIf="signupFailed" class="p-error">
+              Invalid Credintials.
+            </small>
+    </p-card>
+  </div>
+</div>
