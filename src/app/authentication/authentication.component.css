@@ -7,7 +7,7 @@
     flex-wrap: wrap;
 }
 .card{
-    width: 25%;
+    width: 30%;
     box-shadow: 1rem 1rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 .formFeilds{
@@ -19,4 +19,29 @@
     padding-top: 1rem;
     display: flex;
     justify-content: center;
+}
+@media (max-width: 56.25rem) {
+  .auth-page {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;  
+    padding: 1rem 0;  
+    gap: 1rem;          
+    overflow: hidden;   
+  }
+  .card {
+    width: 85%;       
+  }
+  .formFeilds {
+    padding: 0.25rem;
+  }
+  .button {
+    padding-top: 0.5rem;
+  }
+}
+
+@media (max-width: 31.25rem) {
+  .card {
+    width: 93%;       
+  }
 }
