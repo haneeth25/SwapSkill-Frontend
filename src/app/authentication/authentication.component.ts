@@ -26,6 +26,7 @@ export class AuthenticationComponent {
   loginFailed = false
   signupFailed = false;
   signupResponse : string = "";
+  signupErrorMessage : string = "";
 
   constructor(private authenticationService : AuthenticationService , private router : Router){
 
@@ -53,20 +54,35 @@ export class AuthenticationComponent {
     }
   }
     signupSubmit(){
+      this.signupResponse = "";
+      this.signupErrorMessage = ""
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if(this.signupUsername && this.signupassword && this.signupEmail){
+        if (!emailRegex.test(this.signupEmail)) {
+          this.signupFailed = true;
+          this.signupErrorMessage = "Please enter a valid email address";
+          return;
+        }
         this.authenticationService.signup(this.signupUsername,this.signupEmail,this.signupassword).subscribe(data => {
           this.signupResponse = data.signupResponse;
-          if(this.signupResponse = "User registerd"){
+          if(this.signupResponse === "User registerd"){
+            this.signupFailed = false;
             this.loginUsername = this.signupUsername;
             this.loginPassword = this.signupassword;
             this.loginSubmit();
-          }else{
+          }else if (this.signupResponse === "Email exists"){
             this.signupFailed = true;
+            this.signupErrorMessage = "Email already exists, Login with it";
+          }
+          else{
+            this.signupFailed = true;
+            this.signupErrorMessage = "Username already exists, Try other username";
           }
         })
       }
       else{
         this.signupFailed = true;
+        this.signupErrorMessage = "Invalid Credintials";
       }
     }
 }

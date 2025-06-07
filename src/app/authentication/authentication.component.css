@@ -20,6 +20,10 @@
     display: flex;
     justify-content: center;
 }
+.errorMessage{
+  padding-top: 1rem;
+}
+
 @media (max-width: 56.25rem) {
   .auth-page {
     flex-direction: column;
