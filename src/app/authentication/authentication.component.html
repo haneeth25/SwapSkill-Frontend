@@ -29,9 +29,11 @@
       <div class="button">
         <p-button label="Submit" (onClick)="loginSubmit()"/>
       </div>
+      <div class = "errorMessage">
       <small *ngIf="loginFailed" class="p-error">
               Invalid Credintials.
             </small>
+            </div>
     </p-card>
   </div>
 
@@ -79,9 +81,11 @@
       <div class="button">
         <p-button label="Submit" (onClick)="signupSubmit()"/>
       </div>
+      <div class="errorMessage">
       <small *ngIf="signupFailed" class="p-error">
-              Invalid Credintials.
+              {{signupErrorMessage}}
             </small>
+      </div>
     </p-card>
   </div>
 </div>
