@@ -7,12 +7,13 @@ import { ButtonModule } from 'primeng/button';
 import { AuthenticationService } from './service/authentication.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 
 @Component({
   selector: 'app-authentication',
   standalone: true,
-  imports: [CardModule,FormsModule,InputTextModule,PasswordModule,ButtonModule,CommonModule],
+  imports: [CardModule, FormsModule, InputTextModule, PasswordModule, ButtonModule, CommonModule, NavbarComponent],
   templateUrl: './authentication.component.html',
   styleUrl: './authentication.component.css'
 })
