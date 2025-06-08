@@ -1,0 +1,7 @@
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  word-break: break-word;
+  width: 100%;
+}

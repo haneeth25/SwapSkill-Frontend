@@ -12,8 +12,8 @@
                 <input type="text" placeholder="Search..." />
             </li>
             <li><span class="description">DashBoard</span></li>
-            <li><button class="menu-btn login">Login</button></li>
-            <li><button class="menu-btn logout">Logout</button></li>
+            <li><button *ngIf="!isLogin" class="menu-btn login">Login</button></li>
+            <li><button *ngIf="isLogin" class="menu-btn logout" (click)="onLogout()">Logout</button></li>
         </ul>
     </div>
 
