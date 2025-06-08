@@ -1,0 +1,17 @@
+<!-- To upload profile photo  -->
+<div class="upload-container">
+  <h3>Select a file to upload</h3>
+  <!-- For uploading profile photo  -->
+  <div *ngIf="!isProfilePhotoUploaded">
+    <input type="file" (change)="onProfilePhotoSelected($event)" />
+  </div>
+
+  <!-- For deleting upload profile photo  -->
+  <div *ngIf="isProfilePhotoUploaded" class="delete-uploaded-photo">
+    <button type="button" class="file-button" (click)="deletePhoto()">delete</button>
+    <p>{{ this.profilePhotoName }}</p>
+  </div>
+
+  <img *ngIf="profilePhotoBase64String" [src]="profilePhotoBase64String" alt="ProfilePhoto" style="max-width: 200px; max-height: 200px;">
+</div>
+

@@ -1,0 +1,13 @@
+p {
+  margin: 0;
+  font-size: 0.7rem;
+}
+.delete-uploaded-photo{
+    display: flex;
+    align-items: center;
+    gap:0.5rem
+}
+.file-button{
+    height: 1.3rem;
+    width: 5rem;
+}
