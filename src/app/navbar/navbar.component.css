@@ -1,0 +1,242 @@
+header {
+    background-color: var(--surface-card);
+    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 0.5rem;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 87.5rem;
+    margin: 0 auto;
+}
+
+.first {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.dashboard {
+    font-size: 1rem;
+    color: var(--text-color-secondary);
+    margin: 0;
+}
+
+.second {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.btns {
+    display: flex;
+    gap: 1rem;
+}
+
+.search {
+    display: flex;
+}
+
+.p-input-icon-left {
+    width: 100%;
+}
+
+.ham-menu {
+    background-color: #2c3e50;
+    width: 17.5rem;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -17.5rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    transition: left 0.3s ease;
+    z-index: 1001;
+    box-shadow: 0.125rem 0 0.625rem rgba(0, 0, 0, 0.1);
+}
+
+.ham-menu.active {
+    left: 0;
+}
+
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 0.0625rem solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-header .logo {
+    color: white;
+    font-size: 1.5rem;
+}
+
+.close-btn {
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.close-btn:hover {
+    transform: rotate(90deg);
+}
+
+.ham-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.search-item {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.search-item input {
+    width: 100%;
+    padding: 0.8rem 1rem 0.8rem 2.5rem;
+    border-radius: 0.3125rem;
+    border: none;
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.search-item i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+
+.menu-btn {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: 0.3125rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.menu-btn.signup {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.menu-btn.login {
+    background-color: #2196F3;
+    color: white;
+}
+
+.menu-btn.logout {
+    background-color: #f44336;
+    color: white;
+}
+
+.menu-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-0.125rem);
+}
+
+.hamburger {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--primary-color);
+    transition: transform 0.2s;
+}
+
+.hamburger:hover {
+    transform: scale(1.1);
+}
+.hamburger i, .close-btn i {
+    display: inline-block;
+    font-size: 1.5rem;
+}
+
+@media (max-width: 56.25rem) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+
+    .first {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .second {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .search {
+        width: 100%;
+    }
+
+    .search input {
+        width: 100%;
+    }
+
+    .btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .btns button {
+        flex: 1 1 auto;
+        min-width: 7.5rem;
+    }
+}
+@media (max-width: 34.375rem) {
+    .search, .btns,.dashboard {
+        display: none !important;
+    }
+    .hamburger {
+        display: flex;
+        align-items: center;
+        margin-right: 1rem;
+        color: var(--primary-color);
+    }
+    
+    .first {
+        justify-content: flex-start;
+        align-items: center;
+    }
+    
+    nav {
+        padding: 1rem;
+    }
+    .first > * {
+        margin: 0;
+        padding: 0;
+    }
+}
+

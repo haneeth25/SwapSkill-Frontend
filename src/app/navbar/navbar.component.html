@@ -1,0 +1,42 @@
+<header>
+    <div class="ham-menu" [class.active]="isMenuOpen">
+        <div class="menu-header">
+            <span class="logo">SwapSkill</span>
+            <span class="close-btn" (click)="toggleMenu()">
+                <i class="fas fa-times"></i> 
+            </span>
+        </div>
+        <ul>
+            <li class="search-item">
+                <i class="fas fa-search"></i> 
+                <input type="text" placeholder="Search..." />
+            </li>
+            <li><span class="description">DashBoard</span></li>
+            <li><button class="menu-btn login">Login</button></li>
+            <li><button class="menu-btn logout">Logout</button></li>
+        </ul>
+    </div>
+
+    <nav>
+        <div class="first">
+            <span class="hamburger" (click)="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </span>
+            <span class="logo">SwapSkill</span>
+            <span class="dashboard">DashBoard</span>
+        </div>
+        
+        <div class="second">
+            <div class="search">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" placeholder="Search skills or users..." />
+                </span>
+            </div>
+            <div class="btns">
+                <button *ngIf="!isLogin" pButton type="button" label="Login" class="p-button-outlined"></button>
+                <button *ngIf="isLogin" pButton type="button" label="Logout" class="p-button-danger" (click)="onLogout()"></button>
+            </div>
+        </div>
+    </nav>
+</header>
