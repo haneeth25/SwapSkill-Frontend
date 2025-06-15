@@ -84,7 +84,15 @@
             [(ngModel)]="txt"
             (keydown.enter)="onSkillChange(); $event.preventDefault()"
           />
-          <span class="input-hint">Press Enter to add skill</span>
+          <!-- <span class="input-hint">Press Enter to add skill</span> -->
+                    <button
+                type="button"
+                class="add-skill-button"
+                (click)="onSkillChange()"
+                [disabled]="!txt.trim()"
+              >
+              Add
+            </button>
         </div>
 
 
