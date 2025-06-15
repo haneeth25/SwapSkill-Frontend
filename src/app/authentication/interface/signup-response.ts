@@ -1,3 +1,6 @@
 export interface SignupResponse {
-    signupResponse:string
+    signupResponse:string,
+    username:string,
+    password:string,
+    jwtToken:string
 }

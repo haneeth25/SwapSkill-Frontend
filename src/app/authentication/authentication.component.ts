@@ -42,6 +42,7 @@ export class AuthenticationComponent {
           if (this.jwtToken !== "Invalid user") {
             this.loginFailed = false;
             localStorage.setItem("jwtToken", this.jwtToken);
+            localStorage.setItem('profilePhoto',data.profilePhoto);
             console.log(localStorage.getItem("jwtToken"));
             this.router.navigate(['/dashboard'])
           } else {
@@ -70,7 +71,9 @@ export class AuthenticationComponent {
             this.signupFailed = false;
             this.loginUsername = this.signupUsername;
             this.loginPassword = this.signupassword;
-            this.loginSubmit();
+            localStorage.setItem('jwtToken',data.jwtToken);
+            console.log("usr registered");
+            this.router.navigate(['/profilecreation']);
           }else if (this.signupResponse === "Email exists"){
             this.signupFailed = true;
             this.signupErrorMessage = "Email already exists, Login with it";

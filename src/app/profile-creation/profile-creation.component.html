@@ -1,0 +1,164 @@
+<app-navbar></app-navbar>
+
+<div class="profile-container">
+  <h1 class="profileheading">Create Your Profile</h1>
+
+  <form class="profileform">
+    <div class="form-section">
+
+      <!-- Full Name Input -->
+      <div class="full-name form-section">
+        <label for="fullName" class="form-label">Full Name</label>
+        <input
+          type="text"
+          id="fullName"
+          name="fullName"
+          placeholder="Enter your full name"
+          class="form-input"
+          [(ngModel)]="fullname"
+          (ngModelChange)="calculateProgress()"
+        />
+      </div>
+
+      <!-- Profile Photo Upload Section -->
+      <div class="upload-container form-section">
+        <label for="profilephoto">Profile Photo</label>
+        <h3>Select a file to upload</h3>
+
+        <!-- Show input if photo not uploaded -->
+        <div *ngIf="!isProfilePhotoUploaded" class="photoInput">
+          <input type="file" (change)="onProfilePhotoSelected($event)" />
+        </div>
+        
+        <!-- Show delete option and filename if uploaded -->
+        <div *ngIf="isProfilePhotoUploaded" class="delete-uploaded-photo">
+          <button type="button" class="file-button" (click)="deletePhoto()">Delete</button>
+          <p>{{ this.profilePhotoName }}</p>
+        </div>
+
+        <!-- Preview of uploaded image -->
+        <img *ngIf="profilePhotoBase64String" [src]="profilePhotoBase64String" alt="ProfilePhoto" style="max-width: 200px; max-height: 200px;">
+      </div>
+
+
+      <!-- Current Job Input -->
+      <div class="current-job form-section">
+        <label for="currentJob" class="form-label">Current Job</label>
+        <input
+          type="text"
+          id="currentJob"
+          name="currentJob"
+          placeholder="Enter your current job"
+          class="form-input"
+          [(ngModel)]="currentJob"
+          (ngModelChange)="calculateProgress()"
+        />
+      </div>
+
+      <!-- Bio Textarea -->
+      <div class="bio form-section">
+        <label for="bio" class="form-label">Enter Bio</label>
+        <textarea
+          id="bio"
+          rows="5"
+          name="bio"
+          class="form-textarea"
+          [(ngModel)]="bio"
+          (ngModelChange)="calculateProgress()"
+          placeholder="Tell us about yourself..."
+        ></textarea>
+      </div>
+
+      <!-- Skills Section -->
+      <div class="skills form-section">
+        <label for="skills" class="form-label">Add all your Skills</label>
+
+        <!-- Skill input field -->
+        <div class="skill-input-container">
+          <input
+            type="text"
+            id="skills"
+            name="skillInput"
+            placeholder="Enter your skills and press Enter"
+            class="form-input skill-input"
+            [(ngModel)]="txt"
+            (keydown.enter)="onSkillChange(); $event.preventDefault()"
+          />
+          <span class="input-hint">Press Enter to add skill</span>
+        </div>
+
+
+         <!-- Display list of entered skills with rating and delete -->
+        <div class="skills-list">
+          <div class="skill-entry" *ngFor="let skillName of getSkillNames()">
+              <div class="skill-info">
+                <span class="skill-name">{{ skillName }}</span>
+                <span class="skill-rating-label">Rate yourself:</span>
+
+                <!-- PrimeNG rating component -->
+                <p-rating
+                  [ngModel]="getSkillRating(skillName)"
+                  name="rating{{skillName}}"
+                  [cancel]="true"
+                  class="skill-rating"
+                  (ngModelChange)="updateSkillRating(skillName, $event)"
+                ></p-rating>
+
+              </div>
+
+              <!-- Button to delete skill -->
+              <p-button
+                icon="pi pi-trash"
+                styleClass="p-button-rounded p-button-danger p-button-text p-button-sm"
+                (click)="removeSkill(skillName)">Delete
+              </p-button>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- Availability Section -->
+      <div class="availability form-section">
+        <label for="availability">Availability</label>
+        <!-- Dropdown to select a day -->
+        <select id="availability" name="availability" [(ngModel)]="day" (change)="addDays()">
+          <option value="" disabled selected>Select a day</option>
+          <option value="monday">Monday</option>
+          <option value="tuesday">Tuesday</option>
+          <option value="wednesday">Wednesday</option>
+          <option value="thursday">Thursday</option>
+          <option value="friday">Friday</option>
+          <option value="saturday">Saturday</option>
+          <option value="sunday">Sunday</option>
+        </select>
+
+        <!-- Display selected days -->
+        <div class="selected-days" *ngIf="availability.length > 0">
+          <div class="day-chip" *ngFor="let d of availability">
+            {{ d }}
+            <button type="button" (click)="removeDay(d)">x</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+
+
+  <!-- Progress Bar Section -->
+  <div class="progress-bar">
+    <p-progressBar [value]="value" [showValue]="false" class="custom-progressbar"></p-progressBar>
+    <span class="progress-text">{{value}}% Complete</span>
+  </div>
+
+   <!-- Submit Button, the Create button is Disabled until the form is filled completely -->
+  <div class="submit-section">
+    <p-button 
+      label="Create Profile" 
+      styleClass="submit-button" 
+      [disabled]="value < 100"     
+      (click)="createProfile()">
+    </p-button>
+  </div>
+</div>

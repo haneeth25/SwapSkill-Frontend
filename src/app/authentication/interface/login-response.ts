@@ -1,3 +1,4 @@
 export interface LoginResponse {
-     jwtToken:string
+     jwtToken:string,
+     profilePhoto:string
 }
