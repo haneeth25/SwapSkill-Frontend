@@ -196,14 +196,35 @@ html, body {
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
 }
 
-
-.skill-input-container {
-  position: relative;
-  margin-bottom: 0.5rem;
+ .skill-input-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* space between input and button */
+  margin-bottom: 1rem;
 }
 
 .skill-input {
-  padding-right: 9.375rem;
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.add-skill-button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.add-skill-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .input-hint {
