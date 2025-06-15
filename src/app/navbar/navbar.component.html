@@ -1,42 +1,59 @@
 <header>
+    <!-- Side menu for smaller screens (hamburger menu) -->
     <div class="ham-menu" [class.active]="isMenuOpen">
+        <!-- Header inside side menu with logo and close button -->
         <div class="menu-header">
             <span class="logo">SwapSkill</span>
             <span class="close-btn" (click)="toggleMenu()">
-                <i class="fas fa-times"></i> 
+                <i class="fas fa-times"></i><!-- Close icon -->
             </span>
         </div>
+        <!-- Side menu options (search + dashboard button) -->
         <ul>
             <li class="search-item">
-                <i class="fas fa-search"></i> 
+                <i class="fas fa-search"></i><!-- Search icon -->
                 <input type="text" placeholder="Search..." />
             </li>
-            <li><span class="description">DashBoard</span></li>
-            <li><button *ngIf="!isLogin" class="menu-btn login">Login</button></li>
-            <li><button *ngIf="isLogin" class="menu-btn logout" (click)="onLogout()">Logout</button></li>
+            <li><span class="menu-btn dashboard">DashBoard</span></li>
         </ul>
     </div>
 
     <nav>
+        <!-- Left section of nav: hamburger icon (for mobile), logo, dashboard label -->
         <div class="first">
             <span class="hamburger" (click)="toggleMenu()">
-                <i class="fas fa-bars"></i>
+                <i class="fas fa-bars"></i><!-- Hamburger icon to open side menu -->
             </span>
             <span class="logo">SwapSkill</span>
-            <span class="dashboard">DashBoard</span>
+            <span class="dashboard">DashBoard</span><!-- Dashboard label (visible only for desktop) -->
         </div>
-        
+        <!-- Right section of nav: search bar + login/profile buttons -->
         <div class="second">
+            <!--Search bar -->
             <div class="search">
                 <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
+                    <i class="pi pi-search"></i><!-- Search icon -->
                     <input pInputText type="text" placeholder="Search skills or users..." />
                 </span>
             </div>
-            <div class="btns">
-                <button *ngIf="!isLogin" pButton type="button" label="Login" class="p-button-outlined"></button>
-                <button *ngIf="isLogin" pButton type="button" label="Logout" class="p-button-danger" (click)="onLogout()"></button>
+            <!-- If user is logged in, show profile icon and dropdown -->
+            <div *ngIf="isLogin; else showLoginButtons" class="profile-wrapper">
+                <div class="profile-icon" (click)="toggleProfileDropdown()">
+                    <img *ngIf="profilePhotoBase64String" [src]="profilePhotoBase64String" alt="ProfilePhoto"><!-- Profile circle with "You" -->
+                </div>
+                <!-- Dropdown shown when profile icon is clicked -->
+                <div class="profile-dropdown" [class.show]="isProfileDropdownOpen">
+                    <button>Your Profile</button>
+                    <button (click)="onLogout()">Logout</button>
+                </div>
             </div>
+            <!-- Else show login and signup buttons -->
+            <ng-template #showLoginButtons>
+                <div class="btns">
+                    <button pButton type="button" label="Login" class="p-button-outlined" ></button>
+                    <button pButton type="button" label="Signup" class="p-button" ></button>
+                </div>
+            </ng-template>
         </div>
     </nav>
 </header>
