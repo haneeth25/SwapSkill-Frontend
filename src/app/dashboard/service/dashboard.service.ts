@@ -11,10 +11,7 @@ export class DashboardService {
   constructor(private http:HttpClient) { }
 
   dashboardData(){
-    const headers = new HttpHeaders({
-    Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
-  });
-    return this.http.get<{ message: string }>(`${environment.apiBaseUrl}/dashboard`,{headers})
+    return this.http.get<{ message: string }>(`${environment.apiBaseUrl}/dashboard`)
   }
 
 }
