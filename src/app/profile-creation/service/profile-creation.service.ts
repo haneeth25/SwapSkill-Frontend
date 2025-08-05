@@ -10,10 +10,6 @@ export class ProfileCreationService{
     constructor(private http:HttpClient){}
 
     createProfile(profilePhotoBase64String:string|null,currentJob:string,bio:string,skillsAndRating:Map<String,Number>,availableDays:String[]){
-      // authorization headers using JWT token from localStorage  
-      const headers = new HttpHeaders({
-            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
-          });
 
           // Convert the Map of skills and ratings to a plain object because the request body expects JSON
           const skillsObject = Object.fromEntries(skillsAndRating);
@@ -33,7 +29,6 @@ export class ProfileCreationService{
             `${environment.apiBaseUrl}/profilecreation`,  // Backend API endpoint
             profileDetails,
             {
-              headers,                                   // Include auth headers
               responseType: 'text'                       // Expecting text response instead of JSON from backend
             }
           );
