@@ -10,8 +10,9 @@ import { NavbarComponent } from "../navbar/navbar.component";
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-  message:string=""
-  jwtToken:string|null=""
+  message:string="";
+  jwtToken:string|null="";
+
   constructor(private dashboardService:DashboardService){
 
   }

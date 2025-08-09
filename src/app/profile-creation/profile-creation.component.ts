@@ -7,11 +7,13 @@ import { RatingModule } from 'primeng/rating';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { ProfileCreationService } from './service/profile-creation.service';
 import { Router } from '@angular/router';
+import { error } from 'console';
+import { ProgressSpinnerComponent } from "../progress-spinner/progress-spinner.component";
 
 @Component({
   selector: 'app-profile-creation',
   standalone: true,
-  imports: [CommonModule, ButtonModule, ProgressBarModule, FormsModule, RatingModule, NavbarComponent],
+  imports: [CommonModule, ButtonModule, ProgressBarModule, FormsModule, RatingModule, NavbarComponent, ProgressSpinnerComponent],
   templateUrl: './profile-creation.component.html',
   styleUrl: './profile-creation.component.css',
   providers:[]
@@ -35,6 +37,7 @@ export class ProfileCreationComponent {
   // Profile creation response variables
   profileCreationResponse:String="";               // Backend response for creation
   profileCreationErrorMsg:string="";               // Error message if profile creation fails
+  progressSpiner:boolean = false;
 
 
   constructor(private profileCreationService : ProfileCreationService,private router:Router){}
@@ -47,7 +50,6 @@ export class ProfileCreationComponent {
       this.isProfilePhotoUploaded = true;
       this.calculateProgress();
       this.profilePhotoName = this.ProfilePhotoFile.name;
-      console.log('Selected file:', this.ProfilePhotoFile.name);
 
       const fileReader = new FileReader();
       fileReader.readAsDataURL(this.ProfilePhotoFile);
@@ -144,13 +146,12 @@ export class ProfileCreationComponent {
       profilePhotoName:this.profilePhotoName,
       availability: this.availability
     };
-    // console.log("Profile Data", profileData);
-    // console.log(this.profilePhotoBase64String);
 
     this.profileCreationResponse="";
     this.profileCreationErrorMsg="";
     
     // Calls service to send profile data and image to backend
+    this.progressSpiner = true 
     this.profileCreationService.createProfile(this.profilePhotoBase64String,this.currentJob,this.bio,this.skillsList,this.availability).subscribe(data=>{
       this.profileCreationResponse=data;
 
@@ -160,9 +161,11 @@ export class ProfileCreationComponent {
 
       }
       else if(this.profileCreationResponse === "Done"){
-        console.log("Successfully user profile is created");
         this.router.navigate(['/dashboard']);
       }
+      this.progressSpiner = false;
+    },error => {
+      this.progressSpiner = false;
     })
     
     

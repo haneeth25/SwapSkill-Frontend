@@ -54,7 +54,6 @@ export class NavbarComponent {
     // Navigate to the home page and reload the window
     this.router.navigate(['']).then(
       ()=>{
-        console.log("Entering");
         window.location.reload();
       }
     );
