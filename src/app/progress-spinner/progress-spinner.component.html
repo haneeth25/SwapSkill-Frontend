@@ -1,0 +1,10 @@
+<!-- <div *ngIf="progressSpiner" class="overlay">
+  <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+</div> -->
+
+<div *ngIf="progressSpiner" class="overlay fade-in">
+  <div class="spinner-wrapper">
+    <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+    <p class="loading-text">Loading, please wait...</p>
+  </div>
+</div>
