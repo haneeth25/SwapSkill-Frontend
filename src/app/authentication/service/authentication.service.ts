@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment';
 export class AuthenticationService {
 
   constructor(private http:HttpClient) { }
-  
+
     login(username:string,password:string){
       let loginCredintials  = {
         "username":username,

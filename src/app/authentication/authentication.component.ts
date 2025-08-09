@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
@@ -8,16 +8,18 @@ import { AuthenticationService } from './service/authentication.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { NavbarComponent } from "../navbar/navbar.component";
+import { ProgressSpinnerComponent } from "../progress-spinner/progress-spinner.component";
+import { error } from 'console';
 
 
 @Component({
   selector: 'app-authentication',
   standalone: true,
-  imports: [CardModule, FormsModule, InputTextModule, PasswordModule, ButtonModule, CommonModule, NavbarComponent],
+  imports: [CardModule, FormsModule, InputTextModule, PasswordModule, ButtonModule, CommonModule, NavbarComponent, ProgressSpinnerComponent],
   templateUrl: './authentication.component.html',
   styleUrl: './authentication.component.css'
 })
-export class AuthenticationComponent {
+export class AuthenticationComponent implements OnInit{
   loginUsername:string="";
   loginPassword:string="";
   signupUsername:string="";
@@ -28,14 +30,18 @@ export class AuthenticationComponent {
   signupFailed = false;
   signupResponse : string = "";
   signupErrorMessage : string = "";
+  progressSpiner:boolean = false;
 
   constructor(private authenticationService : AuthenticationService , private router : Router){
 
-
+  }
+  ngOnInit(): void {
+    this.progressSpiner = false;
   }
 
   loginSubmit(){
     if (this.loginUsername && this.loginPassword){
+      this.progressSpiner = true;
       this.authenticationService.login(this.loginUsername,this.loginPassword).subscribe(
         data => {
           this.jwtToken = data.jwtToken
@@ -43,11 +49,14 @@ export class AuthenticationComponent {
             this.loginFailed = false;
             localStorage.setItem("jwtToken", this.jwtToken);
             localStorage.setItem('profilePhoto',data.profilePhoto);
-            console.log(localStorage.getItem("jwtToken"));
             this.router.navigate(['/dashboard'])
           } else {
             this.loginFailed = true;
           }
+          this.progressSpiner = false
+        },
+        error => {
+          this.progressSpiner = false
         }
       )
     }
@@ -65,6 +74,7 @@ export class AuthenticationComponent {
           this.signupErrorMessage = "Please enter a valid email address";
           return;
         }
+        this.progressSpiner = true;
         this.authenticationService.signup(this.signupUsername,this.signupEmail,this.signupassword).subscribe(data => {
           this.signupResponse = data.signupResponse;
           if(this.signupResponse === "User registerd"){
@@ -72,7 +82,6 @@ export class AuthenticationComponent {
             this.loginUsername = this.signupUsername;
             this.loginPassword = this.signupassword;
             localStorage.setItem('jwtToken',data.jwtToken);
-            console.log("usr registered");
             this.router.navigate(['/profilecreation']);
           }else if (this.signupResponse === "Email exists"){
             this.signupFailed = true;
@@ -82,6 +91,9 @@ export class AuthenticationComponent {
             this.signupFailed = true;
             this.signupErrorMessage = "Username already exists, Try other username";
           }
+          this.progressSpiner = false;
+        },error => {
+          this.progressSpiner = false
         })
       }
       else{
