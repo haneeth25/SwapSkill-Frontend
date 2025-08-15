@@ -2,13 +2,13 @@ import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [InputTextModule, ButtonModule, CommonModule],
+  imports: [InputTextModule, ButtonModule, CommonModule, RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -57,6 +57,9 @@ export class NavbarComponent {
         window.location.reload();
       }
     );
+  }
+  onProfileClick(){
+    this.router.navigate(['/user-profile'])
   }
 }
 

@@ -1,5 +1,6 @@
 <app-navbar></app-navbar>
 <app-progress-spinner [progressSpiner] = "progressSpiner"> </app-progress-spinner>
+<app-popup-messages [displayMessage]="displayMessage" [message]="message" [messageType]="messageType" (messageHandled)="afterMessageHandled()"></app-popup-messages>
 <div class="auth-page">
   <div class="card flex justify-content-center">
     <!-- LOGIN -->
@@ -31,11 +32,6 @@
       <div class="button">
         <p-button label="Submit" (onClick)="loginSubmit()"/>
       </div>
-      <div class = "errorMessage">
-      <small *ngIf="loginFailed" class="p-error">
-              Invalid Credintials.
-            </small>
-            </div>
     </p-card>
   </div>
 
@@ -82,11 +78,6 @@
       </div>
       <div class="button">
         <p-button label="Submit" (onClick)="signupSubmit()"/>
-      </div>
-      <div class="errorMessage">
-      <small *ngIf="signupFailed" class="p-error">
-              {{signupErrorMessage}}
-            </small>
       </div>
     </p-card>
   </div>
