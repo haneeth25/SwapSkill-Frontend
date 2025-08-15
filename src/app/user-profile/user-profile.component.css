@@ -275,10 +275,6 @@ textarea[pInputTextarea] {
   min-height: 100px; /* minimum height */
   font-family: inherit;
 }
-p-skeleton {
-    flex: 1 !important;
-    min-width: 200px !important;
-}
 
 #availability {
   width: 200px;
@@ -346,6 +342,18 @@ p-skeleton {
   outline: 2px solid #4a90e2;
   outline-offset: 2px;
 }
+/* p-skeleton {
+    flex: 1 !important;
+    min-width: 200px !important;
+} */
+ p-skeleton {
+  box-sizing: border-box;
+  width: 100% !important; /* or fixed width */
+  min-width: 200px !important;
+  box-shadow: none !important; /* reset box-shadow if inherited */
+  transition: none !important; /* reset transition */
+}
+
 /* Responsive tweaks for smaller screens */
 @media (max-width: 480px) {
   input[pInputText],
