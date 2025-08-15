@@ -47,10 +47,8 @@ export class AuthenticationComponent implements OnInit{
           this.jwtToken = data.jwtToken
           if (this.jwtToken !== "Invalid user") {
             this.loginFailed = false;
-            if(typeof window !== 'undefined'){
-              localStorage.setItem("jwtToken", this.jwtToken);
-              localStorage.setItem('profilePhoto',data.profilePhoto);
-            }
+            localStorage.setItem("jwtToken", this.jwtToken);
+            localStorage.setItem('profilePhoto',data.profilePhoto);
             this.router.navigate(['/dashboard'])
           } else {
             this.loginFailed = true;
@@ -83,9 +81,7 @@ export class AuthenticationComponent implements OnInit{
             this.signupFailed = false;
             this.loginUsername = this.signupUsername;
             this.loginPassword = this.signupassword;
-            if(typeof window !== 'undefined'){
-              localStorage.setItem('jwtToken',data.jwtToken);
-            }
+            localStorage.setItem('jwtToken',data.jwtToken);
             this.router.navigate(['/profilecreation']);
           }else if (this.signupResponse === "Email exists"){
             this.signupFailed = true;
