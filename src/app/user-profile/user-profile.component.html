@@ -84,7 +84,7 @@
                     </select>
                 </div>
 
-                <div class="selected-days" *ngIf="userDetails.availableDays.length>0">
+                <div class="selected-days" *ngIf="!isDisplaySkeleton && userDetails.availableDays.length>0">
                     <div class="day-chip" *ngFor="let d of userDetails.availableDays;let i = index;">
                         {{ d }}
                         <button *ngIf="isEditing" type="button" (click)="removeDay(i)">x</button>
