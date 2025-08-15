@@ -1,0 +1,74 @@
+<app-navbar></app-navbar>
+<app-popup-messages [displayMessage]="displayMessage" [message]="message" [messageType]="messageType" (messageHandled)="afterMessageHandled()"></app-popup-messages>
+<div class="user-profile-page">
+    <div class="user-profile-details">
+        <div class="profile-photo-section">
+            <img *ngIf="profilePhotoBase64String && !isDisplayImgSkeleton" [src]="profilePhotoBase64String" alt="ProfilePhoto">
+            <p-skeleton *ngIf = "isDisplayImgSkeleton" shape="circle" size="15rem" styleClass="mr-2" />
+            <input *ngIf="isProfileImgEditing" type="file"  id="profile-image-input" (change)="onProfilePhotoSelected($event)" class="custom-file-input" accept="image/*"/>
+            <label for="profile-image-input" class="custom-file-label" *ngIf="isProfileImgEditing">Choose Photo</label>
+            <button class="profile-photo-edit-button" (click)="onEditOrSaveProfilePhotoClick()">{{profilePhotoEditButtonText}}</button>
+        </div>
+        <div class="personal-details-section">
+            <div class="title-section"> 
+                Profile 
+                <button class="details-edit-button" (click)="onEditOrSaveProfileClick()"> {{profileEditButtonText}} </button>
+            </div>
+            <div class="user-name-section">
+                <div class="user-name-title" style="font-weight: bold;">
+                    User Name :
+                </div>
+                <div *ngIf="!isEditing && !isDisplaySkeleton" class="user-name">
+                    {{userDetails.fullName}}
+                </div>
+                <input *ngIf = "isEditing && !isDisplaySkeleton" type="text" pInputText style="width: 100%;" [(ngModel)] = "userDetails.fullName" />
+                <p-skeleton *ngIf="isDisplaySkeleton" height="1.5rem" width="100%"></p-skeleton>
+            </div>
+            <div class="current-job-section">
+                <div class="current-job-title" style="font-weight: bold;">
+                    Current Job :
+                </div>
+                <div *ngIf="!isEditing && !isDisplaySkeleton" class="current-job">
+                    {{userDetails.currentJob}}
+                </div>
+                <input *ngIf = "isEditing && !isDisplaySkeleton" type="text" pInputText style="width: 100%;" [(ngModel)] = "userDetails.currentJob"/>
+                <p-skeleton *ngIf="isDisplaySkeleton" height="1.5rem" width="100%"></p-skeleton>
+            </div>
+            <div class="bio-section">
+                <div class="bio-title" style="font-weight: bold;">
+                    Bio :
+                </div>
+                <div *ngIf="!isEditing && !isDisplaySkeleton" class="nio">
+                    {{userDetails.bio}}
+                </div>
+                <textarea *ngIf = "isEditing && !isDisplaySkeleton"
+                    rows="5"
+                    cols="30" 
+                    pInputTextarea [(ngModel)]="userDetails.bio">
+                </textarea>
+                <p-skeleton *ngIf="isDisplaySkeleton" height="1.5rem" width="100%"></p-skeleton>
+            </div>
+            <div class="skills-section">
+                <div class="skill-title" style="font-weight: bold;">
+                    Skills :
+                </div>
+                <div *ngFor="let eachSkill of userDetails?.skillsAndRating;let i = index">
+                    <div *ngIf = "!isDisplaySkeleton"class="each-skill">
+                        <p>{{eachSkill.key}} :</p>
+                        <p-rating 
+                        [readonly]="!isEditing"
+                        [cancel]="isEditing"
+                        [(ngModel)]="eachSkill.value"/>
+                    </div>
+                </div>
+                <p-skeleton *ngIf="isDisplaySkeleton" height="1.5rem" width="100%"></p-skeleton>
+            </div>
+            <div class="availability-section">
+               <div class="availability-title" style="font-weight: bold;">
+                    Available Days :
+                </div>
+                <p-skeleton *ngIf="isDisplaySkeleton" height="1.5rem" width="100%"></p-skeleton>
+            </div>
+        </div>
+    </div>
+</div>

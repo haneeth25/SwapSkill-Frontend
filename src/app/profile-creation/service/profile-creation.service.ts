@@ -26,7 +26,7 @@ export class ProfileCreationService{
 
           // Send POST request to the backend endpoint with the profile data
           return this.http.post(
-            `${environment.apiBaseUrl}/profilecreation`,  // Backend API endpoint
+            `${environment.apiBaseUrl}/profileCreation`,  // Backend API endpoint
             profileDetails,
             {
               responseType: 'text'                       // Expecting text response instead of JSON from backend

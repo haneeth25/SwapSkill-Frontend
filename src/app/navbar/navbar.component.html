@@ -14,7 +14,7 @@
                 <i class="fas fa-search"></i><!-- Search icon -->
                 <input type="text" placeholder="Search..." />
             </li>
-            <li><span class="menu-btn dashboard">DashBoard</span></li>
+            <li><span class="menu-btn dashboard" routerLink="/dashboard" >DashBoard</span></li>
         </ul>
     </div>
 
@@ -25,7 +25,7 @@
                 <i class="fas fa-bars"></i><!-- Hamburger icon to open side menu -->
             </span>
             <span class="logo">SwapSkill</span>
-            <span class="dashboard">DashBoard</span><!-- Dashboard label (visible only for desktop) -->
+            <span class="dashboard" routerLink="/dashboard">DashBoard</span><!-- Dashboard label (visible only for desktop) -->
         </div>
         <!-- Right section of nav: search bar + login/profile buttons -->
         <div class="second">
@@ -43,15 +43,15 @@
                 </div>
                 <!-- Dropdown shown when profile icon is clicked -->
                 <div class="profile-dropdown" [class.show]="isProfileDropdownOpen">
-                    <button>Your Profile</button>
+                    <button (click)="onProfileClick()">Your Profile</button>
                     <button (click)="onLogout()">Logout</button>
                 </div>
             </div>
             <!-- Else show login and signup buttons -->
             <ng-template #showLoginButtons>
                 <div class="btns">
-                    <button pButton type="button" label="Login" class="p-button-outlined" ></button>
-                    <button pButton type="button" label="Signup" class="p-button" ></button>
+                    <button pButton type="button" label="Login" class="p-button-outlined" routerLink="" ></button>
+                    <button pButton type="button" label="Signup" class="p-button" routerLink="" ></button>
                 </div>
             </ng-template>
         </div>
