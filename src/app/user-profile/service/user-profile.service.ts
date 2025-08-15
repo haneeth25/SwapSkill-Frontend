@@ -12,7 +12,7 @@ export class UserProfileService {
     constructor(private http:HttpClient) { }
 
   getUserDetails(){
-    return this.http.get<UserDetails>(`${environment.apiBaseUrl}/userDetails`).pipe(delay(4000));
+    return this.http.get<UserDetails>(`${environment.apiBaseUrl}/userDetails`);
   }
   updateUserDetails(userDetails:UserDetails){
     return this.http.post<UserDetails>(`${environment.apiBaseUrl}/updateUserDetails`,userDetails)

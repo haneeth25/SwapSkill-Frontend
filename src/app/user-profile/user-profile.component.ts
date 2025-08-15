@@ -36,6 +36,7 @@ export class UserProfileComponent implements OnInit {
   messageType: string = "";
   displayMessage: boolean = false;
   message: string = "";
+  day : string = "";
   constructor(private userProfileService: UserProfileService) {
     this.profilePhotoBase64String = environment.defaultProfilephoto;
   }
@@ -142,6 +143,16 @@ export class UserProfileComponent implements OnInit {
         localStorage.setItem('profilePhoto', this.profilePhotoBase64String);
       }
     }
+  }
+  addDays(){
+    if(!this.userDetails.availableDays.includes(this.day)){
+      this.userDetails.availableDays.push(this.day);
+    }
+  }
+  removeDay(index:number){
+    console.log(this.userDetails.availableDays);
+    this.userDetails.availableDays.splice(index,1);
+    console.log(this.userDetails.availableDays);
   }
 
 }
