@@ -20,7 +20,13 @@ export class DashboardComponent {
   ngOnInit():void{
     this.dashboardService.dashboardData().subscribe(data => {
       this.message = data.message;
-      this.jwtToken = localStorage.getItem("jwtToken");
-    })
+      if(typeof window !== 'undefined' && window.localStorage){
+        this.jwtToken = localStorage.getItem("jwtToken");
+      }
+      else{
+        this.jwtToken = null;
+      }
+    }
+  );
   }
 }
