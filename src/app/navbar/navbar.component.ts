@@ -4,6 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { TokenService } from '../services/token-service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,7 @@ import { environment } from '../../environments/environment';
 })
 
 export class NavbarComponent {
-  constructor(private router:Router){}
+  constructor(private router:Router,private tokenService:TokenService){}
 
   isMenuOpen:boolean = false;
   isLogin:boolean =false;
@@ -30,36 +31,44 @@ export class NavbarComponent {
     this.isProfileDropdownOpen=!this.isProfileDropdownOpen;
   }
   ngOnInit():void{
-    if(localStorage.getItem("profilePhoto")){
-      this.profilePhotoBase64String=localStorage.getItem("profilePhoto");
-    }
-    else{
-      this.profilePhotoBase64String=environment.defaultProfilephoto;
-    }
-    // Check if user is logged in by verifying token in localStorage, it is called when the component is initialized
-    if(localStorage.getItem("jwtToken")){
-      this.isLogin=true;
-    }
-    else{
-      this.isLogin=false;
-    }
+    this.tokenService.jwtToken$.subscribe((token) => {
+      if(token){
+        this.isLogin = true;
+      }else{
+        this.isLogin = false;
+      }
+    })
+    this.tokenService.profilePhoto$.subscribe((profilePhoto) => {
+      if(profilePhoto){
+        this.profilePhotoBase64String = profilePhoto;
+      }
+      else{
+        this.profilePhotoBase64String = environment.defaultProfilephoto;
+      }
+    })
+    // if(localStorage.getItem("profilePhoto")){
+    //   this.profilePhotoBase64String=localStorage.getItem("profilePhoto");
+    // }
+    // else{
+    //   this.profilePhotoBase64String=environment.defaultProfilephoto;
+    // }
   }
   onLogout() {
     // Remove token from localStorage and Update login and dropdown states
-    localStorage.removeItem("jwtToken");
-    localStorage.removeItem("profilePhoto");
+    this.tokenService.setToken(null);
+    this.tokenService.setProfilePhoto(null);
     this.isLogin=false;
     this.isProfileDropdownOpen = false;
 
-    // Navigate to the home page and reload the window
-    this.router.navigate(['']).then(
-      ()=>{
-        window.location.reload();
-      }
-    );
+    this.router.navigate(["authentication"])
   }
   onProfileClick(){
+    this.isProfileDropdownOpen = !this.isProfileDropdownOpen;
     this.router.navigate(['/user-profile'])
+  }
+  onDashBoardSideMenuClick(){
+    this.isMenuOpen = !this.isMenuOpen;
+    this.router.navigate([""])
   }
 }
 

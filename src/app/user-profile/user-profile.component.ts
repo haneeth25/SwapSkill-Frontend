@@ -11,11 +11,12 @@ import { UserProfileService } from './service/user-profile.service';
 import { UserDetails } from '../models/UserDetails';
 import { SkeletonModule } from 'primeng/skeleton';
 import { PopupMessagesComponent } from "../popup-messages/popup-messages.component";
+import { TokenService } from '../services/token-service';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [NavbarComponent, CardModule, CommonModule, ButtonModule, InputTextModule, RatingModule, FormsModule, SkeletonModule, PopupMessagesComponent],
+  imports: [CardModule, CommonModule, ButtonModule, InputTextModule, RatingModule, FormsModule, SkeletonModule, PopupMessagesComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
@@ -37,7 +38,7 @@ export class UserProfileComponent implements OnInit {
   displayMessage: boolean = false;
   message: string = "";
   day : string = "";
-  constructor(private userProfileService: UserProfileService) {
+  constructor(private userProfileService: UserProfileService,private tokenService:TokenService) {
     this.profilePhotoBase64String = environment.defaultProfilephoto;
   }
   ngOnInit(): void {
@@ -70,6 +71,12 @@ export class UserProfileComponent implements OnInit {
         this.displayMessage = true;
         this.message = "Server error occurred. Please try again later.";
         // Optionally log error.error for more info
+      }else if(error.status === 403){
+        this.tokenService.setToken(null);
+        this.tokenService.setProfilePhoto(null);
+        this.messageType = "error";
+        this.displayMessage = true;
+        this.message = "Session Expired , Please login";
       }
     })
   }
@@ -100,7 +107,13 @@ export class UserProfileComponent implements OnInit {
           this.messageType = "error";
           this.displayMessage = true;
           this.message = "Server error occurred. Please try again later.";
-        }
+        }else if(error.status === 403){
+          this.tokenService.setToken(null);
+          this.tokenService.setProfilePhoto(null);
+          this.messageType = "error";
+          this.displayMessage = true;
+          this.message = "Session Expired , Please login";
+      }
       });
     }
   }
@@ -125,7 +138,13 @@ export class UserProfileComponent implements OnInit {
           this.messageType = "error";
           this.displayMessage = true;
           this.message = "Server error occurred. Please try again later.";
-        }
+        } else if(error.status === 403){
+          this.tokenService.setToken(null);
+          this.tokenService.setProfilePhoto(null);
+          this.messageType = "error";
+          this.displayMessage = true;
+          this.message = "Session Expired , Please login";
+      }
       });
     }
   }
@@ -140,7 +159,7 @@ export class UserProfileComponent implements OnInit {
       fileReader.readAsDataURL(this.ProfilePhotoFile);
       fileReader.onload = () => {
         this.profilePhotoBase64String = fileReader.result as string;
-        localStorage.setItem('profilePhoto', this.profilePhotoBase64String);
+        this.tokenService.setProfilePhoto(this.profilePhotoBase64String)
       }
     }
   }

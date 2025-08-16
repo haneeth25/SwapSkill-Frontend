@@ -9,11 +9,12 @@ import { ProfileCreationService } from './service/profile-creation.service';
 import { Router } from '@angular/router';
 import { error } from 'console';
 import { ProgressSpinnerComponent } from "../progress-spinner/progress-spinner.component";
+import { TokenService } from '../services/token-service';
 
 @Component({
   selector: 'app-profile-creation',
   standalone: true,
-  imports: [CommonModule, ButtonModule, ProgressBarModule, FormsModule, RatingModule, NavbarComponent, ProgressSpinnerComponent],
+  imports: [CommonModule, ButtonModule, ProgressBarModule, FormsModule, RatingModule, ProgressSpinnerComponent],
   templateUrl: './profile-creation.component.html',
   styleUrl: './profile-creation.component.css',
   providers:[]
@@ -40,7 +41,7 @@ export class ProfileCreationComponent {
   progressSpiner:boolean = false;
 
 
-  constructor(private profileCreationService : ProfileCreationService,private router:Router){}
+  constructor(private profileCreationService : ProfileCreationService,private router:Router,private tokenService:TokenService){}
 
   // Handles profile photo selection, stores base64 string for preview
   onProfilePhotoSelected(event: Event) {
@@ -55,7 +56,7 @@ export class ProfileCreationComponent {
       fileReader.readAsDataURL(this.ProfilePhotoFile);
       fileReader.onload = () =>{
         this.profilePhotoBase64String = fileReader.result as string;
-        localStorage.setItem('profilePhoto',this.profilePhotoBase64String);
+        this.tokenService.setProfilePhoto(this.profilePhotoBase64String);
       }  
     }
   }
@@ -161,7 +162,7 @@ export class ProfileCreationComponent {
 
       }
       else if(this.profileCreationResponse === "Done"){
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['']);
       }
       this.progressSpiner = false;
     },error => {
