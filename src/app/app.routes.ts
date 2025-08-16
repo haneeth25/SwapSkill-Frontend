@@ -3,22 +3,26 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileCreationComponent } from './profile-creation/profile-creation.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { AuthGuard } from './AuthGuard';
 
 export const routes: Routes = [
     {
-        path:"",
+        path:"authentication",
         component:AuthenticationComponent
     },
     {
-        path : "dashboard",
-        component:DashboardComponent
+        path : "",
+        component:DashboardComponent,
+        canActivate:[AuthGuard]
     },
     {
         path : "profilecreation",
-        component:ProfileCreationComponent
+        component:ProfileCreationComponent,
+        canActivate:[AuthGuard]
     },
     {
         path : "user-profile",
-        component:UserProfileComponent
+        component:UserProfileComponent,
+        canActivate:[AuthGuard]
     }
 ];

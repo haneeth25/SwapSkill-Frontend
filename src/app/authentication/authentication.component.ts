@@ -7,16 +7,16 @@ import { ButtonModule } from 'primeng/button';
 import { AuthenticationService } from './service/authentication.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { NavbarComponent } from "../navbar/navbar.component";
 import { ProgressSpinnerComponent } from "../progress-spinner/progress-spinner.component";
 import { error } from 'console';
 import { PopupMessagesComponent } from "../popup-messages/popup-messages.component";
+import { TokenService } from '../services/token-service';
 
 
 @Component({
   selector: 'app-authentication',
   standalone: true,
-  imports: [CardModule, FormsModule, InputTextModule, PasswordModule, ButtonModule, CommonModule, NavbarComponent, ProgressSpinnerComponent, PopupMessagesComponent],
+  imports: [CardModule, FormsModule, InputTextModule, PasswordModule, ButtonModule, CommonModule, ProgressSpinnerComponent, PopupMessagesComponent],
   templateUrl: './authentication.component.html',
   styleUrl: './authentication.component.css'
 })
@@ -34,7 +34,7 @@ export class AuthenticationComponent implements OnInit{
   displayMessage:boolean = false;
   message:string="";
 
-  constructor(private authenticationService : AuthenticationService , private router : Router){
+  constructor(private authenticationService : AuthenticationService , private router : Router,private tokenService:TokenService){
 
   }
   ngOnInit(): void {
@@ -56,9 +56,9 @@ export class AuthenticationComponent implements OnInit{
           this.jwtToken = data.jwtToken
           if (this.jwtToken !== "Invalid user") {
             this.loginFailed = false;
-            localStorage.setItem("jwtToken", this.jwtToken);
-            localStorage.setItem('profilePhoto',data.profilePhoto);
-            this.router.navigate(['/dashboard'])
+            this.tokenService.setToken(this.jwtToken);
+            this.tokenService.setProfilePhoto(data.profilePhoto);
+            this.router.navigate([''])
           } else {
             this.progressSpiner = false
             this.messageType = "error";
@@ -78,6 +78,13 @@ export class AuthenticationComponent implements OnInit{
             this.displayMessage = true;
             this.message = "Server error occurred. Please try again later.";
           }
+          else if(error.status === 403){
+            this.tokenService.setToken(null);
+            this.tokenService.setProfilePhoto(null);
+            this.messageType = "error";
+            this.displayMessage = true;
+            this.message = "Session Expired , Please login";
+      }
         }
       )
     }
@@ -106,7 +113,7 @@ export class AuthenticationComponent implements OnInit{
           if(this.signupResponse === "User registerd"){
             this.loginUsername = this.signupUsername;
             this.loginPassword = this.signupassword;
-            localStorage.setItem('jwtToken',data.jwtToken);
+            this.tokenService.setToken(data.jwtToken);
             this.router.navigate(['/profilecreation']);
           }else if (this.signupResponse === "Email exists"){
             this.progressSpiner = false;
@@ -135,7 +142,13 @@ export class AuthenticationComponent implements OnInit{
             this.messageType = "error";
             this.displayMessage = true;
             this.message = "Server error occurred. Please try again later.";
-          }
+          } else if(error.status === 403){
+            this.tokenService.setToken(null);
+            this.tokenService.setProfilePhoto(null);
+            this.messageType = "error";
+            this.displayMessage = true;
+            this.message = "Session Expired , Please login";
+      }
         })
       }
       else{

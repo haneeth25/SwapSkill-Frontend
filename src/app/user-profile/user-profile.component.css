@@ -166,6 +166,14 @@
     flex-wrap: wrap;
     margin-bottom: 0.8rem;
 }
+.user-name-section{
+  display: flex;
+  gap: 0.5rem;
+}
+.current-job-section{
+  display: flex;
+  gap: 0.5rem;
+}
 /* Label styles */
 .personal-details-section .user-name-title,
 .personal-details-section .current-job-title,
@@ -188,7 +196,7 @@
 }
 .bio-section{
     display: flex;
-    gap: 1.5rem;
+    gap: 0.5rem;
 }
 /* Skills section styling */
 .skills-section {
