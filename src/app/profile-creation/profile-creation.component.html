@@ -27,7 +27,7 @@
 
         <!-- Show input if photo not uploaded -->
         <div *ngIf="!isProfilePhotoUploaded" class="photoInput">
-          <input type="file" (change)="onProfilePhotoSelected($event)" />
+          <input type="file" (change)="onProfilePhotoSelected($event)" accept="image/*" />
         </div>
         
         <!-- Show delete option and filename if uploaded -->
