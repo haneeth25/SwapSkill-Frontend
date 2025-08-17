@@ -153,7 +153,7 @@ export class ProfileCreationComponent {
     
     // Calls service to send profile data and image to backend
     this.progressSpiner = true 
-    this.profileCreationService.createProfile(this.profilePhotoBase64String,this.currentJob,this.bio,this.skillsList,this.availability).subscribe(data=>{
+    this.profileCreationService.createProfile(this.fullname,this.profilePhotoBase64String,this.currentJob,this.bio,this.skillsList,this.availability).subscribe(data=>{
       this.profileCreationResponse=data;
 
       // Handling responses

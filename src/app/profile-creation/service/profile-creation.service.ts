@@ -9,7 +9,7 @@ export class ProfileCreationService{
   // Inject HttpClient into the service for making HTTP requests
     constructor(private http:HttpClient){}
 
-    createProfile(profilePhotoBase64String:string|null,currentJob:string,bio:string,skillsAndRating:Map<String,Number>,availableDays:String[]){
+    createProfile(fullname:string,profilePhotoBase64String:string|null,currentJob:string,bio:string,skillsAndRating:Map<String,Number>,availableDays:String[]){
 
           // Convert the Map of skills and ratings to a plain object because the request body expects JSON
           const skillsObject = Object.fromEntries(skillsAndRating);
@@ -17,6 +17,7 @@ export class ProfileCreationService{
 
           // request body containing all profile details
           let profileDetails = {
+            "fullName":fullname,
             "profilePhoto":profilePhotoBase64String,
             "currentJob":currentJob,
             "bio":bio,
