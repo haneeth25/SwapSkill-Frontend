@@ -24,7 +24,7 @@ export class UserProfileComponent implements OnInit {
   ProfilePhotoFile: File | null = null;           // Stores uploaded profile image file
   isProfilePhotoUploaded = false;                  // Flag to show if profile photo uploaded
   profilePhotoName: string = "";                  // Stores name of uploaded photo
-  profilePhotoBase64String: string | null = null;   // Base64 version of photo for preview/storage
+  profilePhotoBase64String: string|null = null;   // Base64 version of photo for preview/storage
   isEditing: boolean = false;
   isProfileImgEditing: boolean = false;
   profileEditButtonText?: string;
@@ -54,6 +54,7 @@ export class UserProfileComponent implements OnInit {
     }
     this.userProfileService.getUserDetails().subscribe(data => {
       this.userDetails = data;
+      this.profilePhotoBase64String = this.userDetails.profilePhoto;
       console.log(this.userDetails);
       if (data != null) {
         this.isDisplaySkeleton = false;
@@ -94,6 +95,7 @@ export class UserProfileComponent implements OnInit {
     } else {
       this.profileEditButtonText = "Edit"
       this.isDisplaySkeleton = true;
+      console.log(this.userDetails);
       this.userProfileService.updateUserDetails(this.userDetails).subscribe((data) => {
         this.userDetails = data;
         this.isDisplaySkeleton = false;
@@ -125,6 +127,8 @@ export class UserProfileComponent implements OnInit {
     else {
       this.profilePhotoEditButtonText = "Edit";
       this.isDisplayImgSkeleton = true;
+      this.userDetails.profilePhoto = this.profilePhotoBase64String
+      console.log(this.userDetails)
       this.userProfileService.updateUserDetails(this.userDetails).subscribe((data) => {
         this.userDetails = data;
         this.isDisplayImgSkeleton = false;
