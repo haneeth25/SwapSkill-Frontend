@@ -7,4 +7,5 @@ export interface UserDetails{
     bio:string;
     skillsAndRating:KeyValueMapper<string,number>[];
     availableDays:string[];
+    jwtToken:string;
 }
