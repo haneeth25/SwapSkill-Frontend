@@ -1,7 +1,7 @@
 import { KeyValueMapper } from "./KeyValueMapper";
 
 export interface UserDetails{
-    fullName:string;
+    userName:string;
     profilePhoto:string | null;
     currentJob:string;
     bio:string;

@@ -23,10 +23,10 @@
                     User Name :
                 </div>
                 <div *ngIf="!isEditing && !isDisplaySkeleton" class="user-name">
-                    {{userDetails.fullName}}
+                    {{userDetails.userName}}
                 </div>
                 <input *ngIf="isEditing && !isDisplaySkeleton" type="text" pInputText style="width: 100%;"
-                    [(ngModel)]="userDetails.fullName" />
+                    [(ngModel)]="userDetails.userName" />
                 <p-skeleton *ngIf="isDisplaySkeleton" height="1.5rem" width="100%"></p-skeleton>
             </div>
             <div class="current-job-section">
